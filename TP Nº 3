@@ -1,0 +1,158 @@
+# OOI
+Ejercicio 2
+
+Clase
+
+Object subclass: #Document
+	instanceVariableNames: 'title body'
+	classVariableNames: ''
+	package: 'Objetos'
+  
+Métodos
+
+-----de instancia
+initialize
+	title:= ''.
+	body:= ''
+  
+addLine: aString
+	body:= body, aString 
+  
+size
+	^ title size + body size + (body size * 0.1)  
+
+title: aString
+	title:= aString 
+
+-----de clase
+titled: aString
+	^ self new
+	title:  aString
+
+
+Ejercicio 4 #Ejercicio en duda, resolví hacer una clase Perfil y otra Karma
+
+Clases
+
+Object subclass: #Karma
+	instanceVariableNames: 'cant'
+	classVariableNames: ''
+	package: 'Objetos'
+  
+Object subclass: #Perfil
+	instanceVariableNames: 'nombre postsUltMes likesUltMes karma'
+	classVariableNames: ''
+	package: 'Objetos'
+
+Métodos
+
+-----de instancia (Perfil)
+actualizar
+	karma nuevoKarmaPosts: postsUltMes likes: likesUltMes.
+	postsUltMes := 0.
+	likesUltMes := 0. 
+  
+initialize
+	postsUltMes:= 0.
+	likesUltMes:= 0.
+	nombre:= 'Undefined'.
+	karma:= Karma new.
+  
+karma
+	^karma cant
+  
+likesUltMes
+	^ likesUltMes 
+  
+likesUltMes: aNumber
+	likesUltMes:= aNumber
+  
+nombre
+	^nombre
+  
+nombre: aString
+	nombre:= aString 
+  
+postsUltMes
+	^ postsUltMes 
+  
+postsUltMes: aNumber
+	postsUltMes:= aNumber  
+  
+-----de instancia(karma)
+cant
+	^ cant
+  
+initialize
+	cant:= 0.
+  
+nuevoKarmaPosts: cantPosts likes: cantLikes
+	((cantLikes / cantPosts ) > 30 and: (cantLikes / cantPosts ) < 51) ifTrue: [ cant:= cant + 2 ].
+	((cantLikes / cantPosts ) > 50) ifTrue: [ cant:= cant + 3 ]
+  
+
+Ejercicio 5 #Resolvi hacerlo distinto y no hice clase Karma
+
+Clases 
+
+Object subclass: #Usuario
+	instanceVariableNames: 'nombre posts likes karma'
+	classVariableNames: ''
+	package: 'Objetos'
+  
+Usuario subclass: #UsuarioGold
+	instanceVariableNames: ''
+	classVariableNames: ''
+	package: 'Objetos'
+  
+Usuario subclass: #UsuarioSilver
+	instanceVariableNames: ''
+	classVariableNames: ''
+	package: 'Objetos'
+  
+Metodos
+
+----de instancia(Usuario)
+actualizarKarma
+	"Abstracto, tiene que redefinirlo la subclase"
+	self subclassResponsibility
+  
+initialize
+	nombre:= 'Undefined'.
+	posts:= 0.
+	likes:= 0.
+	karma:= 0.
+  
+karma
+	^ karma
+  
+likes
+	^ likes
+
+likes: aNumber
+	likes:= aNumber 
+  
+nombre
+	^ nombre
+  
+nombre: aString
+	nombre:= aString 
+  
+posts
+	^ posts
+  
+posts: aNumber
+	posts:= aNumber 
+  
+----de instancia(UsuarioGold)
+actualizarKarma
+	karma:= posts * likes / Float halfPi. 
+	posts:= 0.
+	likes:= 0.
+
+----de instancia(UsuarioSilver)
+actualizarKarma
+	karma:= posts * likes / Float pi.
+	posts:= 0.
+	likes:= 0.
+  
