@@ -28,6 +28,14 @@ title: aString
 titled: aString
 	^ self new
 	title:  aString
+	
+Playground
+
+doc:= Document new.
+
+docu:= Document titled: 'Titulox'.
+
+doc addLine: 'asi'.
 
 
 Ejercicio 4 #Ejercicio en duda, resolví hacer una clase Perfil y otra Karma
@@ -90,6 +98,16 @@ nuevoKarmaPosts: cantPosts likes: cantLikes
 	((cantLikes / cantPosts ) > 30 and: (cantLikes / cantPosts ) < 51) ifTrue: [ cant:= cant + 2 ].
 	((cantLikes / cantPosts ) > 50) ifTrue: [ cant:= cant + 3 ]
   
+Playground
+
+perf:= Perfil new.
+
+perf likesUltMes: 120.
+perf postsUltMes: 3.
+perf postsUltMes.
+perf actualizar.
+perf karma.
+
 
 Ejercicio 5 #Resolvi hacerlo distinto y no hice clase Karma
 
@@ -156,3 +174,135 @@ actualizarKarma
 	posts:= 0.
 	likes:= 0.
   
+Playground
+
+usu:= Usuario new.
+usu likes.
+usu likes: 100.
+usu posts: 30.
+usu karma.
+usu actualizarKarma.
+
+usuG:= UsuarioGold new. 
+usuG likes: 100.
+usuG posts: 3.
+usuG karma.
+usuG actualizarKarma.
+
+usuS:= UsuarioSilver new. 
+usuS likes: 100.
+usuS posts: 3.
+usuS karma.
+usuS actualizarKarma.
+
+
+Ejercicio 6
+
+Clases
+
+Object subclass: #Carrito
+	instanceVariableNames: 'carro total'
+	classVariableNames: ''
+	package: 'Objetos'
+	
+Object subclass: #Producto
+	instanceVariableNames: 'nombre precio'
+	classVariableNames: ''
+	package: 'Objetos'
+	
+Métodos
+
+-----de clase (Producto)
+newProd: aString precio: aNumber
+	^ self new
+		nombre: aString;
+		precio: aNumber;
+		yourself
+		
+-----de instancia (Producto)
+nombre
+	^nombre
+
+nombre: aString
+	nombre:= aString
+	
+precio
+	^precio
+	
+precio: aNumber
+	precio:= aNumber 
+	
+-----de instancia (Carrito)
+agregarCarrito: aProduct
+	carro add: aProduct precio.
+	
+calcularPrecio
+	|acum|
+	acum:= 1.
+	(carro size > 10) ifTrue: [acum:= acum - 0.1].
+	(carro sum > 10000) ifTrue: [acum:= acum - 0.05].
+	^ carro sum * acum
+	
+cantItems
+	^carro size 
+	
+initialize
+	total:= 0.
+	carro:= Bag new.
+	
+Playground
+
+
+carrito:= Carrito new.
+a:= Producto newProd: 'a' precio:10.
+b:= Producto newProd: 'b' precio:10.
+c:= Producto newProd: 'c' precio:10.
+d:= Producto newProd: 'd' precio:10.
+e:= Producto newProd: 'e' precio:10.
+f:= Producto newProd: 'f' precio:10.
+g:= Producto newProd: 'g' precio:10. 
+h:= Producto newProd: 'h' precio:10.
+i:= Producto newProd: 'i' precio:10.
+j:= Producto newProd: 'j' precio:10.
+k:= Producto newProd: 'k' precio:10.
+carrito agregarCarrito: a.
+carrito agregarCarrito: b.
+carrito agregarCarrito: c.
+carrito agregarCarrito: d.
+carrito agregarCarrito: e.
+carrito agregarCarrito: f.
+carrito agregarCarrito: g.
+carrito agregarCarrito: h.
+carrito agregarCarrito: i.
+carrito agregarCarrito: j.
+carrito agregarCarrito: k.
+carrito cantItems.
+carrito calcularPrecio. 
+
+a:= Producto newProd: 'a' precio:12000.
+carrito agregarCarrito: a.
+
+a:= Producto newProd: 'a' precio:1000.
+b:= Producto newProd: 'a' precio:1000.
+c:= Producto newProd: 'a' precio:1000.
+d:= Producto newProd: 'a' precio:1000.
+e:= Producto newProd: 'a' precio:1000.
+f:= Producto newProd: 'a' precio:1000.
+g:= Producto newProd: 'a' precio:1000.
+h:= Producto newProd: 'a' precio:1000.
+i:= Producto newProd: 'a' precio:1000.
+j:= Producto newProd: 'a' precio:1000.
+k:= Producto newProd: 'a' precio:1000.
+carrito agregarCarrito: a.
+carrito agregarCarrito: b.
+carrito agregarCarrito: c.
+carrito agregarCarrito: d.
+carrito agregarCarrito: e.
+carrito agregarCarrito: f.
+carrito agregarCarrito: g.
+carrito agregarCarrito: h.
+carrito agregarCarrito: i.
+carrito agregarCarrito: j.
+carrito agregarCarrito: k.
+
+
