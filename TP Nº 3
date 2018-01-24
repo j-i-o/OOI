@@ -1,4 +1,17 @@
 # OOI
+
+Template
+EJERCICIO X
+
+CLASES
+METODOS
+-----DE INSTANCIA
+-----DE CLASE
+
+PLAYGROUND
+
+------
+
 Ejercicio 2
 
 Clase
@@ -305,4 +318,116 @@ carrito agregarCarrito: i.
 carrito agregarCarrito: j.
 carrito agregarCarrito: k.
 
+------------
 
+EJERCICIO 8
+"Lo unico molesto es la variable de absolutaAnterior que es necesaria para agregar temperaturas diferenciales"
+
+CLASES
+
+Object subclass: #SistMonitor
+	instanceVariableNames: 'mediciones tempActual absolutaAnterior'
+	classVariableNames: ''
+	package: 'Objetos'
+
+Object subclass: #Medicion
+	instanceVariableNames: 'timestamp med'
+	classVariableNames: ''
+	package: 'Objetos'
+	
+Medicion subclass: #MedicionAbsoluta
+	instanceVariableNames: ''
+	classVariableNames: ''
+	package: 'Objetos'
+	
+Medicion subclass: #MedicionRelativa
+	instanceVariableNames: 'valorAbsolutoAnterior'
+	classVariableNames: ''
+	package: 'Objetos'
+
+METODOS
+-----DE INSTANCIA (SistMonitor)
+
+addAbsoluteTemperature: aValue clock: aNumber
+	mediciones add: (MedicionAbsoluta new: aValue clock: aNumber).
+	tempActual:= aValue. 
+	absolutaAnterior:= aValue 
+
+addDiferentialTemperature: aValue clock: aNumber
+	mediciones add: (MedicionRelativa new: aValue absoluta: absolutaAnterior clock: aNumber).
+	tempActual:= aValue  
+	
+allTemperatureValues	
+	^ mediciones collect: [ :medi | (medi isMemberOf: MedicionAbsoluta ) 
+		ifTrue: [medi valor]
+		ifFalse: [ ( medi valor - medi valorAbsolutoAnterior) round: 2 ]
+		]
+
+averageTemperature
+	|var|
+	var:= mediciones inject: 0 into: [ :acu :med | acu + med valor ].
+	^ var / mediciones size
+	
+currentTemperature
+	^tempActual 
+	
+initialize
+	tempActual:= 0.
+	mediciones:= OrderedCollection new.
+	
+reset
+	mediciones:= SortedCollection new.
+	mediciones add: [self addAbsoluteTemperature: tempActual clock: 1]
+
+-----DE INSTANCIA (Medicion)
+
+timestamp
+	^timestamp 
+
+timestamp: aNumber
+	timestamp:= aNumber  
+
+valor
+	^med	
+
+valor: aNumber
+	med:= aNumber 
+	
+-----DE CLASE (MedicionAbsoluta)
+
+new: value clock: aNumber
+	^ self new
+		valor: value;
+		timestamp: aNumber;
+		yourself 
+
+-----DE INSTANCIA (MedicionRelativa)
+
+valorAbsolutoAnterior
+	^valorAbsolutoAnterior 
+	
+valorAbsolutoAnterior: aNumber
+	valorAbsolutoAnterior:= aNumber  
+
+-----DE CLASE (MedicionRelativa)
+
+new: value absoluta: tAnterior clock: aNumber
+	^ self new
+		valor: value;
+		timestamp: aNumber;
+		valorAbsolutoAnterior: tAnterior;
+		yourself 
+
+PLAYGROUND
+
+monitor:= SistMonitor new.
+monitor addAbsoluteTemperature: 80 clock: 1.
+monitor addDiferentialTemperature: 80.3 clock: 2.
+monitor addDiferentialTemperature: 80.6 clock: 3.
+monitor addAbsoluteTemperature: 90 clock: 4.
+monitor addDiferentialTemperature: 89.9 clock: 5.
+monitor addDiferentialTemperature: 90.1 clock: 6.
+monitor addDiferentialTemperature: 89.8 clock: 7.
+monitor addDiferentialTemperature: 90 clock: 8. 
+colec:= monitor allTemperatureValues.
+monitor averageTemperature.
