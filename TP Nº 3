@@ -10,20 +10,20 @@ METODOS
 
 PLAYGROUND
 
-------
+------------
 
-Ejercicio 2
+EJERCICIO 2
 
-Clase
+CLASES
 
 Object subclass: #Document
 	instanceVariableNames: 'title body'
 	classVariableNames: ''
 	package: 'Objetos'
   
-Métodos
+METODOS
 
------de instancia
+-----DE INSTANCIA
 initialize
 	title:= ''.
 	body:= ''
@@ -37,12 +37,12 @@ size
 title: aString
 	title:= aString 
 
------de clase
+-----DE CLASE
 titled: aString
 	^ self new
 	title:  aString
 	
-Playground
+PLAYGROUND
 
 doc:= Document new.
 
@@ -50,10 +50,11 @@ docu:= Document titled: 'Titulox'.
 
 doc addLine: 'asi'.
 
+------------
 
-Ejercicio 4 #Ejercicio en duda, resolví hacer una clase Perfil y otra Karma
+EJERCICIO 4 "Ejercicio en duda, resolví hacer una clase Perfil y otra Karma"
 
-Clases
+CLASES
 
 Object subclass: #Karma
 	instanceVariableNames: 'cant'
@@ -65,9 +66,9 @@ Object subclass: #Perfil
 	classVariableNames: ''
 	package: 'Objetos'
 
-Métodos
+METODOS
 
------de instancia (Perfil)
+-----DE INSTANCIA (Perfil)
 actualizar
 	karma nuevoKarmaPosts: postsUltMes likes: likesUltMes.
 	postsUltMes := 0.
@@ -100,7 +101,7 @@ postsUltMes
 postsUltMes: aNumber
 	postsUltMes:= aNumber  
   
------de instancia(karma)
+-----DE INSTANCIA (Karma)
 cant
 	^ cant
   
@@ -111,7 +112,7 @@ nuevoKarmaPosts: cantPosts likes: cantLikes
 	((cantLikes / cantPosts ) > 30 and: (cantLikes / cantPosts ) < 51) ifTrue: [ cant:= cant + 2 ].
 	((cantLikes / cantPosts ) > 50) ifTrue: [ cant:= cant + 3 ]
   
-Playground
+PLAYGROUND
 
 perf:= Perfil new.
 
@@ -121,10 +122,11 @@ perf postsUltMes.
 perf actualizar.
 perf karma.
 
+------------
 
-Ejercicio 5 #Resolvi hacerlo distinto y no hice clase Karma
+EJERCICIO 5 #Resolvi hacerlo distinto y no hice clase Karma
 
-Clases 
+CLASES
 
 Object subclass: #Usuario
 	instanceVariableNames: 'nombre posts likes karma'
@@ -141,9 +143,9 @@ Usuario subclass: #UsuarioSilver
 	classVariableNames: ''
 	package: 'Objetos'
   
-Metodos
+METODOS
 
-----de instancia(Usuario)
+----DE INSTANCIA (Usuario)
 actualizarKarma
 	"Abstracto, tiene que redefinirlo la subclase"
 	self subclassResponsibility
@@ -175,19 +177,20 @@ posts
 posts: aNumber
 	posts:= aNumber 
   
-----de instancia(UsuarioGold)
+----DE INSTANCIA (UsuarioGold)
+
 actualizarKarma
 	karma:= posts * likes / Float halfPi. 
 	posts:= 0.
 	likes:= 0.
 
-----de instancia(UsuarioSilver)
+----DE INSTANCIA(UsuarioSilver)
 actualizarKarma
 	karma:= posts * likes / Float pi.
 	posts:= 0.
 	likes:= 0.
-  
-Playground
+
+PLAYGROUND
 
 usu:= Usuario new.
 usu likes.
@@ -208,10 +211,11 @@ usuS posts: 3.
 usuS karma.
 usuS actualizarKarma.
 
+------------
 
-Ejercicio 6
+EJERCICIO 6
 
-Clases
+CLASES
 
 Object subclass: #Carrito
 	instanceVariableNames: 'carro total'
@@ -223,16 +227,18 @@ Object subclass: #Producto
 	classVariableNames: ''
 	package: 'Objetos'
 	
-Métodos
+METODOS
 
------de clase (Producto)
+-----DE CLASE (Producto)
+
 newProd: aString precio: aNumber
 	^ self new
 		nombre: aString;
 		precio: aNumber;
 		yourself
 		
------de instancia (Producto)
+-----DE INSTANCIA (Producto)
+
 nombre
 	^nombre
 
@@ -245,7 +251,8 @@ precio
 precio: aNumber
 	precio:= aNumber 
 	
------de instancia (Carrito)
+-----DE INSTANCIA (Carrito)
+
 agregarCarrito: aProduct
 	carro add: aProduct precio.
 	
@@ -263,8 +270,7 @@ initialize
 	total:= 0.
 	carro:= Bag new.
 	
-Playground
-
+PLAYGROUND
 
 carrito:= Carrito new.
 a:= Producto newProd: 'a' precio:10.
