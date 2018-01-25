@@ -1,1 +1,57 @@
 
+EJERCICIO X
+
+CLASES
+METODOS
+-----DE INSTANCIA
+-----DE CLASE
+
+PLAYGROUND
+
+EJERCICIO 1
+
+1)  En la clase Magnitude
+2)  En la clase Magnitude, pero estan overriden en algunas clases
+3)  No, ninguno de los dos por ser subclases de Magnitude
+
+EJERCICIO 2
+
+1)  newDay:month:year: (dia:= Date newDay: 29 month: 06 year: 1986)
+2)  dia between: 29/06/1986 and: 29/06/2018
+3)  
+CLASES
+
+Object subclass: #DateLapse
+	instanceVariableNames: 'to from'
+	classVariableNames: ''
+	package: 'Objetos1-DateLapse'
+
+METODOS
+-----DE INSTANCIA
+
+from
+	^ from
+
+to
+	^ to.
+
+from: aDate to: anotherDate
+	"inicializa el receptor representando el intervalo cerrado comprendido por aDate y anotherDate"
+		from:= aDate.
+		to:= anotherDate.
+
+includesDate: aDate
+	^ aDate between: from and: to 
+  
+sizeInDays
+	^to subtractDate: from
+
+-----DE CLASE
+
+new
+	"Retorna error ya que una instancia de DateLapse debe crearse con el mensaje de clase #from:to:"
+	^ self error: 'A DateLapse must be created with the message #from:to:'
+  
+from: aDate to: anotherDate
+	"Crea un DateLapse que abarca el intervalo cerrado comprendido entre aDate y anotherDate."
+	^ super new from: aDate to: anotherDate
