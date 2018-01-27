@@ -437,3 +437,39 @@ monitor addDiferentialTemperature: 89.8 clock: 7.
 monitor addDiferentialTemperature: 90 clock: 8. 
 colec:= monitor allTemperatureValues.
 monitor averageTemperature.
+
+------------
+
+EJERCICIO 9a
+
+CLASES
+
+Object subclass: #CaesarCipher
+	instanceVariableNames: 'abecedario diccionario'
+	classVariableNames: ''
+	package: 'Objetos'
+	
+METODOS
+-----DE INSTANCIA
+
+initialize
+	abecedario:= $a to: $z.
+	diccionario:= Dictionary new.
+	1 to: abecedario size do: [ :i | 
+		((abecedario at: i) = $x) ifTrue: [ diccionario at: (abecedario at: i) put: $a ].
+		((abecedario at: i) = $y) ifTrue: [ diccionario at: (abecedario at: i) put: $b ].
+		((abecedario at: i) = $z) ifTrue: [ diccionario at: (abecedario at: i) put: $c ].
+		((abecedario at: i) ~= $x) & ((abecedario at: i) ~= $y) & ((abecedario at:i) ~= $z) ifTrue: [ 			diccionario at: (abecedario at: i) put: (abecedario at: i + 3) ].
+		].
+		
+decipher: aString
+	^ aString collect: [ :each | diccionario keyAtValue: each]
+	
+cipher: aString
+	^ aString collect: [ :each | diccionario at: each]
+	
+PLAYGROUND
+
+cipher:= CaesarCipher new.
+cipher cipher: 'abc'.
+cipher decipher: 'def'.
