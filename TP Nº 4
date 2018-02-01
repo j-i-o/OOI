@@ -1,6 +1,8 @@
 
 EJERCICIO X
 
+--------
+
 CLASES
 METODOS
 -----DE INSTANCIA
@@ -55,3 +57,74 @@ new
 from: aDate to: anotherDate
 	"Crea un DateLapse que abarca el intervalo cerrado comprendido entre aDate y anotherDate."
 	^ super new from: aDate to: anotherDate
+
+--------
+
+CLASES
+
+Object subclass: #DelaunayElement
+	instanceVariableNames: 'vertex1 vertex2 vertex3'
+	classVariableNames: ''
+	package: 'Objetos'
+
+METODOS
+-----DE INSTANCIA
+area
+	|s|
+	s:= self perimeter / 2.
+	^ (s * (s - vertex1 distanceTo: vertex2) * (s - vertex2 distanceTo: vertex3) * (s - vertex3 distanceTo: vertex1)) sqrt
+	
+isNeighborElement: anObject
+	^ (self sameAs: anObject) not and: (self shareSide: anObject).
+	
+isVertex: aPoint
+	^(aPoint = vertex1 or: (aPoint = vertex2 or: aPoint = vertex3))
+	
+perimeter
+	|d1 d2 d3|
+	d1:= vertex1 distanceTo: vertex2.
+	d2:= vertex2 distanceTo: vertex3.
+	d3:= vertex3 distanceTo: vertex1.
+	^d1 + d2 + d3
+	
+sameAs: anObject
+	^(vertex1 = anObject vertex1 and: (vertex2 = anObject vertex2 and: vertex3 = anObject vertex3))
+	
+shareSide: anObject
+	(vertex1 = anObject vertex1 or: (vertex1 = anObject vertex2 or: vertex1 = anObject vertex3)) ifFalse: [ 
+		(vertex2 = anObject vertex1 or: (vertex2 = anObject vertex2 or: vertex2 = anObject vertex3)) ifFalse: [ ^ false ] 
+		 		ifTrue: [ 
+			^(vertex3 = anObject vertex1 or: (vertex3 = anObject vertex2 or: vertex3 = anObject vertex3)) 
+			 ]
+		]
+		ifTrue: [ 
+			(vertex2 = anObject vertex1 or: (vertex2 = anObject vertex2 or: vertex2 = anObject vertex3)) ifTrue: [ 
+				^true
+				 ]
+			ifFalse: [ 
+				^(vertex3 = anObject vertex1 or: (vertex3 = anObject vertex2 or: vertex3 = anObject vertex3)) 
+				 ] 
+			 ]
+Getters y Setters
+
+-----DE CLASE
+
+withPointsP1: p1 p2: p2 p3: p3
+	^ self new 
+		vertex1: p1;
+		vertex2: p2;
+		vertex3: p3;
+		yourself
+
+PLAYGROUND
+
+t1:= DelaunayElement withPointsP1: 1@1 p2: 1@2 p3: 2@2.
+t2:= DelaunayElement withPointsP1: 1@2 p2: 2@2 p3: 1@3.
+t3:= DelaunayElement withPointsP1: 3@3 p2: 3@1 p3: 2@2.  
+
+t1 perimeter.
+t1 area.
+t1 sameAs: t3.
+t1 isVertex: 1@3.
+t1 shareSide: t2.
+t1 isNeighborElement: t3.
